@@ -1,0 +1,22 @@
+# Reflection — StudyPlan AI (1 page)
+
+## What I built and why
+StudyPlan AI turns a pasted course syllabus into a structured week-by-week study plan. I chose it after the idea-validation exercise showed classmates already paste syllabi into ChatGPT but abandon the unstructured output — the gap wasn't "access to AI", it was **structure and persistence**, which shaped the whole design (JSON-mode output, schema validation, saved plans).
+
+## What went well
+- **Spec-first development paid off.** Writing spec.md with exact request/response shapes before coding meant the API route, UI, and tests all agreed on one contract, and the zod schemas became shared source of truth for the server, client, and test suite.
+- **AI-assisted coding was fastest on pure logic.** The prompt builder, date helpers, and schemas were generated almost correctly on the first pass because they are pure functions with clear specs. The AI-assistant config files (CLAUDE.md, .cursorrules) noticeably reduced back-and-forth by pinning conventions like "never call OpenAI from the client."
+- **Free-tier stack held up.** Next.js + Supabase + Vercel needed zero infrastructure work; Supabase RLS gave per-user data isolation with four lines of SQL instead of custom backend authorization code.
+
+## What was hard
+- **LLM output reliability.** Even in JSON mode, the model occasionally dropped fields or mis-typed `milestone`. The fix — re-validate with a zod schema server-side and retry once before failing — came out of the spec review and turned intermittent UI crashes into a clean error path.
+- **Secrets discipline across environments.** The same variables live in three places (.env.local, GitHub Actions, Vercel). The CI build initially failed because `next build` wanted Supabase env vars; the fix was dummy public values in the workflow while real values stay only in Vercel.
+- **Auth edge cases.** Handling Supabase's email-confirmation flow (session is null right after sign-up) required explicitly messaging the user instead of silently failing.
+
+## What I'd do differently
+- Start with one end-to-end "walking skeleton" (auth → dummy generate → render) before polishing any single layer; I built the API route to spec before the UI could exercise it, which delayed integration feedback.
+- Add an integration test with a mocked OpenAI client — unit tests cover the logic, but the route's retry behavior was only verified manually.
+- Log token usage per request from day one to understand cost per plan.
+
+## Key takeaway
+The difference between an AI demo and an AI product is everything around the model call: validation, retries, persistence, auth, CI, and deployment. The model call was ~30 lines; making it shippable was the other ~95% of the work.
