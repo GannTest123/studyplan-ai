@@ -1,0 +1,15 @@
+# .cursorrules — StudyPlan AI
+
+You are working on StudyPlan AI: Next.js 14 (App Router, TypeScript, src/ dir) + Tailwind,
+OpenAI (server-side only), Supabase (auth + plans table with RLS), Vitest tests, Vercel deploy.
+
+Rules:
+- TypeScript strict mode. Avoid `any`.
+- OpenAI calls happen ONLY in src/app/api/generate/route.ts. Never expose OPENAI_API_KEY to the client.
+- Validate every request body with zod (schemas in src/lib/schemas.ts). Re-validate model JSON with PlanSchema.
+- Supabase access via helpers in src/lib/supabase/. Assume RLS is on; never use a service-role key in app code.
+- Styling with Tailwind utilities only.
+- Keep pure logic (prompt building, date math, schemas) in src/lib/ so it stays unit-testable.
+- Write/update Vitest tests in tests/ when changing logic in src/lib/.
+- Never commit .env files or secrets. .env.example documents variable NAMES only.
+- Before considering a task done: npm run lint && npm test && npm run build must pass.
