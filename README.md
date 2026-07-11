@@ -68,7 +68,7 @@ npm test       # Vitest — 18 unit tests across validation, schemas, prompt, da
 npm run build  # production build
 ```
 
-The same three gates run in [GitHub Actions](.github/workflows/ci.yml) on every push and PR. Vercel deploys `main` automatically.
+The same three gates run in [GitHub Actions](.github/workflows/ci.yml) on every push and PR. Production deploys run via `vercel deploy --prod`.
 
 ## Security notes
 
