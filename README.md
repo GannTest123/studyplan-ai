@@ -68,7 +68,7 @@ npm test       # Vitest — 18 unit tests across validation, schemas, prompt, da
 npm run build  # production build
 ```
 
-The same three gates run in [GitHub Actions](.github/workflows/ci.yml) on every push and PR. Production deploys run via `vercel deploy --prod`.
+The same three gates run in [GitHub Actions](.github/workflows/ci.yml) on every push and PR. Production deploys run via `vercel deploy --prod`, which requires the Vercel CLI to be authenticated — either `vercel login` interactively, or a `VERCEL_TOKEN` (from vercel.com → Account Settings → Tokens) exported in the shell for non-interactive use. This token is separate from the app's runtime env vars above and is never committed to the repo.
 
 ## Security notes
 
