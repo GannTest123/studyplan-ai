@@ -24,7 +24,7 @@ Not a chatbot. The user pastes a syllabus once and gets a **structured, week-by-
 
 ### 6. Feasibility check
 - Core loop = one LLM call with structured output → renderable JSON. Buildable in < 1 week.
-- Stack (Next.js + OpenAI + Supabase + Vercel) is all free-tier.
+- Stack (Next.js + OpenAI/Vercel AI SDK (Vocareum proxy) + Supabase + Vercel) is all free-tier.
 - Risk: syllabus formats vary → mitigated by accepting pasted text (user controls input) and robust prompt design.
 
 ### 7. Success metrics

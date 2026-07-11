@@ -50,7 +50,7 @@ Errors: `400` invalid input (zod details), `401` not signed in, `502` OpenAI fai
 Insert/select/delete on `plans` table happens through the Supabase JS client with RLS enforcing ownership.
 
 ## AI prompt strategy
-- Model: `gpt-4o-mini`, `response_format: { type: "json_object" }`, temperature 0.4.
+- Model: OpenAI `gpt-4o-mini` via the Vercel AI SDK (`generateText` + structured `output` schema), against a Vocareum proxy endpoint, temperature 0.4.
 - System prompt: "You are an academic planning assistant. Extract structure from the syllabus and produce a realistic week-by-week study plan as JSON matching this schema… Rules: cover every graded deliverable, place review milestones 2 weeks before exams, respect the user's weekly hour budget, never invent deliverables not in the syllabus."
 - The server re-validates the model's JSON against a zod schema (`PlanSchema`) before returning; on parse failure retry once, then `502`.
 
@@ -72,6 +72,7 @@ Insert/select/delete on `plans` table happens through the Supabase JS client wit
 | Var | Scope | Purpose |
 |---|---|---|
 | `OPENAI_API_KEY` | server only | OpenAI calls |
+| `OPENAI_BASE_URL` | server only | Proxy endpoint (Vocareum) |
 | `NEXT_PUBLIC_SUPABASE_URL` | public | Supabase project URL |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | public | Supabase anon key (safe with RLS) |
 

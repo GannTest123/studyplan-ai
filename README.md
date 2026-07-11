@@ -14,7 +14,7 @@ Students receive dense syllabi at the start of every term but rarely turn them i
 
 ## Features
 
-- 🧠 **AI plan generation** — OpenAI (`gpt-4o-mini`, JSON mode) converts a pasted syllabus into a validated, structured week-by-week plan
+- 🧠 **AI plan generation** — OpenAI (`gpt-4o-mini`, via the Vercel AI SDK against a Vocareum proxy endpoint) converts a pasted syllabus into a validated, structured week-by-week plan
 - 🔐 **Accounts** — Supabase Auth (email/password); plans are private per user via Postgres Row Level Security
 - 💾 **Saved plans** — dashboard to revisit, view, and delete plans
 - 🛡️ **Hardened** — zod validation on every input, model output re-validated server-side, API key never leaves the server
@@ -24,7 +24,7 @@ Students receive dense syllabi at the start of every term but rarely turn them i
 | Layer | Tech |
 |---|---|
 | Frontend | Next.js 14 (App Router, TypeScript) + Tailwind CSS — runs on Node.js |
-| AI | OpenAI `gpt-4o-mini` via server-side API route |
+| AI | OpenAI `gpt-4o-mini` via Vercel AI SDK (Vocareum proxy), server-side API route |
 | Database + Auth | Supabase (Postgres + RLS, Supabase Auth) |
 | CI/CD | GitHub Actions (lint → test → build) → Vercel |
 
@@ -33,7 +33,7 @@ Students receive dense syllabi at the start of every term but rarely turn them i
 ```
 Browser (Next.js + Tailwind)
   ├─ Supabase Auth (email/password)
-  ├─ POST /api/generate ── zod validation ── OpenAI (key in server env only)
+  ├─ POST /api/generate ── zod validation ── OpenAI via Vercel AI SDK (key in server env only)
   └─ Supabase Postgres: plans table (RLS: owner-only)
 GitHub → Actions CI → Vercel deploy
 ```
@@ -52,7 +52,8 @@ Environment variables (`.env.local` — never committed):
 
 | Variable | Where to get it |
 |---|---|
-| `OPENAI_API_KEY` | platform.openai.com → API keys |
+| `OPENAI_API_KEY` | platform.openai.com → API keys (or a Vocareum-issued proxy key) |
+| `OPENAI_BASE_URL` | Only needed for a proxy (e.g. Vocareum); omit for real OpenAI |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase → Project Settings → API |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase → Project Settings → API |
 

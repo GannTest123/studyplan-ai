@@ -10,7 +10,7 @@ Browser (Next.js 14 App Router + Tailwind CSS)
   ├─ POST /api/generate  ── server route
   │     ├─ zod validation (length caps, required fields)
   │     ├─ auth check (must be signed in)
-  │     └─ OpenAI Chat Completions (JSON mode) ← OPENAI_API_KEY (server env only)
+  │     └─ OpenAI via Vercel AI SDK (structured output, Vocareum proxy) ← OPENAI_API_KEY (server env only)
   │
   └─ Supabase Postgres
         └─ table: plans (id, user_id, title, plan_json, created_at)
@@ -26,7 +26,7 @@ GitHub (public repo)
 | Decision | Choice | Why |
 |---|---|---|
 | Framework | Next.js 14 (App Router) | Runs on Node.js, first-class Vercel deploy, API routes keep the OpenAI key server-side |
-| AI | OpenAI `gpt-4o-mini`, JSON mode | Cheap, fast, reliable structured output for plan JSON |
+| AI | OpenAI `gpt-4o-mini` via Vercel AI SDK (Vocareum proxy) | Cheap, fast, reliable structured output for plan JSON; Vocareum gives metered access without personal billing |
 | DB + Auth | Supabase (Postgres + Auth) | One free-tier service for both; RLS gives per-user data isolation |
 | Styling | Tailwind CSS | Fast to build a clean UI |
 | Tests | Vitest | Fast, zero-config for TS unit tests |
@@ -34,7 +34,7 @@ GitHub (public repo)
 | Hosting | Vercel | Free tier, env-var secrets, preview deploys |
 
 ## Security
-- `OPENAI_API_KEY` and `SUPABASE_SERVICE_ROLE_KEY` (if ever needed) exist only in server env (Vercel project settings / `.env.local`, gitignored).
+- `OPENAI_API_KEY`, `OPENAI_BASE_URL`, and `SUPABASE_SERVICE_ROLE_KEY` (if ever needed) exist only in server env (Vercel project settings / `.env.local`, gitignored).
 - `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are public by design (anon key is safe when RLS is on).
 - All user input validated with zod; syllabus text capped at 20,000 chars.
 - Supabase RLS policies restrict `plans` to `auth.uid() = user_id`.

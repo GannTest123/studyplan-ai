@@ -20,13 +20,13 @@ Graduate students and part-time learners managing multiple courses alongside wor
 - Payments of any kind.
 
 ## Core feature (the AI capability)
-`Syllabus text → GPT (structured JSON output) → rendered plan`
+`Syllabus text → OpenAI (structured JSON output) → rendered plan`
 The plan contains: course title, term length, and for each week — topics, deliverables/readings due, recommended study hours, and milestone warnings (e.g., "Midterm in 2 weeks — start reviewing").
 
 ## User flow
 1. User lands on the app, signs in (Supabase Auth — email magic link or password).
 2. Pastes syllabus text into a textarea, optionally sets start date and weekly study-hour budget.
-3. Clicks **Generate plan** → server calls OpenAI with a structured-output prompt.
+3. Clicks **Generate plan** → server calls OpenAI (via a Vocareum proxy) with a structured-output prompt.
 4. Plan renders as week-by-week cards; user clicks **Save** to persist it.
 5. Saved plans appear on the user's dashboard for later viewing.
 
@@ -36,6 +36,6 @@ The plan contains: course title, term length, and for each week — topics, deli
 - Save rate: majority of generated plans get saved.
 
 ## Constraints
-- OpenAI API key lives only in server-side environment variables.
+- OpenAI (Vocareum proxy) API key lives only in server-side environment variables.
 - Input validated and length-capped (max ~20k characters) before any LLM call.
-- Free-tier infrastructure only (Vercel, Supabase, OpenAI pay-as-you-go).
+- Free-tier infrastructure only (Vercel, Supabase, Vocareum-metered OpenAI access).

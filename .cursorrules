@@ -1,7 +1,7 @@
 # .cursorrules — StudyPlan AI
 
 You are working on StudyPlan AI: Next.js 14 (App Router, TypeScript, src/ dir) + Tailwind,
-OpenAI (server-side only), Supabase (auth + plans table with RLS), Vitest tests, Vercel deploy.
+OpenAI via Vercel AI SDK against a Vocareum proxy endpoint (server-side only), Supabase (auth + plans table with RLS), Vitest tests, Vercel deploy.
 
 Rules:
 - TypeScript strict mode. Avoid `any`.

@@ -1,11 +1,11 @@
 # CLAUDE.md — StudyPlan AI
 
 ## Project overview
-StudyPlan AI turns a pasted course syllabus into a structured week-by-week study plan using OpenAI, with Supabase for auth and saved plans. Built for a graded AIM Week 4 assignment: must stay deployed on Vercel with green CI.
+StudyPlan AI turns a pasted course syllabus into a structured week-by-week study plan using OpenAI (via a Vocareum-proxied endpoint), with Supabase for auth and saved plans. Built for a graded AIM Week 4 assignment: must stay deployed on Vercel with green CI.
 
 ## Stack
 - Next.js 14 (App Router, TypeScript, `src/` dir) + Tailwind CSS
-- OpenAI `gpt-4o-mini` via official `openai` SDK — **server-side only** (`/api/generate`)
+- OpenAI `gpt-4o-mini` via the Vercel AI SDK (`ai` + `@ai-sdk/openai`), pointed at a Vocareum proxy endpoint — **server-side only** (`/api/generate`)
 - Supabase: Postgres (`plans` table, RLS on) + Supabase Auth (email/password) via `@supabase/ssr`
 - Vitest for unit tests, ESLint for linting
 - GitHub Actions CI → Vercel deploy
@@ -33,7 +33,7 @@ StudyPlan AI turns a pasted course syllabus into a structured week-by-week study
 - Pure logic (prompts, dates, schemas) lives in `src/lib/` so it is unit-testable without mocking Next.js.
 
 ## Hard rules
-- **Never commit secrets.** `OPENAI_API_KEY` only in `.env.local` / Vercel env. `.env.example` holds names, not values.
+- **Never commit secrets.** `OPENAI_API_KEY` (and `OPENAI_BASE_URL`) only in `.env.local` / Vercel env. `.env.example` holds names, not values.
 - Never call OpenAI from client components.
 - Don't add new dependencies without need — free tier, small bundle.
 - All changes must pass `npm run lint && npm test && npm run build` before commit.

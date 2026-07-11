@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
+import { generateText, Output, APICallError } from "ai";
+import { createOpenAI } from "@ai-sdk/openai";
 import { createClient } from "@supabase/supabase-js";
 import { GenerateRequestSchema, PlanSchema } from "@/lib/schemas";
 import { buildPrompt } from "@/lib/prompt";
@@ -37,29 +38,25 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  const openai = createOpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+    baseURL: process.env.OPENAI_BASE_URL,
+  });
   const { system, user: userMsg } = buildPrompt(parsed.data);
 
-  // The model occasionally returns JSON that misses the schema — retry once.
+  // The model occasionally returns a plan that misses the schema — retry once.
   for (let attempt = 1; attempt <= 2; attempt++) {
     try {
-      const completion = await openai.chat.completions.create({
-        model: "gpt-4o-mini",
+      const { output } = await generateText({
+        model: openai("gpt-4o-mini"),
+        output: Output.object({ schema: PlanSchema }),
         temperature: 0.4,
-        response_format: { type: "json_object" },
-        messages: [
-          { role: "system", content: system },
-          { role: "user", content: userMsg },
-        ],
+        system,
+        prompt: userMsg,
       });
-
-      const raw = completion.choices[0]?.message?.content ?? "";
-      const plan = PlanSchema.safeParse(JSON.parse(raw));
-      if (plan.success) {
-        return NextResponse.json({ plan: plan.data });
-      }
+      return NextResponse.json({ plan: output });
     } catch (err) {
-      if (err instanceof OpenAI.APIError && err.status === 429) {
+      if (APICallError.isInstance(err) && err.statusCode === 429) {
         return NextResponse.json(
           { error: "AI service is rate-limited right now — try again in a minute." },
           { status: 429 }
