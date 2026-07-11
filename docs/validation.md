@@ -3,7 +3,7 @@
 ## The 7 Validation Steps
 
 ### 1. Target user (specific, not "everyone")
-Graduate students and working professionals in part-time programs (e.g., AIM MBA/MSc students) who juggle multiple courses alongside jobs and need to plan study time deliberately rather than cram.
+Graduate students and working professionals in part-time programs (e.g., AIM MBA/MSc students, part-time law students) who juggle multiple courses alongside jobs and need to plan study time deliberately rather than cram.
 
 ### 2. Problem statement (one sentence)
 At the start of every term, students receive dense course syllabi as PDFs/documents and must manually translate them into a realistic week-by-week study schedule — a tedious, error-prone process most students skip, leading to last-minute cramming.
