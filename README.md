@@ -4,7 +4,7 @@
 
 > Graded Assignment 4.2 — AI-Powered Web Application (AIM, Week 4)
 
-🔗 **Live app:** _[add Vercel URL after deploy]_
+🔗 **Live app:** https://studyplan-ai-henna.vercel.app
 🎬 **Demo video (2 min):** _[add recording link]_
 📄 Docs: [PRD](docs/PRD.md) · [Idea validation](docs/validation.md) · [Architecture](docs/architecture.md) · [Spec](spec.md) · [Reflection](docs/reflection.md)
 
@@ -18,6 +18,7 @@ Students receive dense syllabi at the start of every term but rarely turn them i
 - 🔐 **Accounts** — Supabase Auth (email/password); plans are private per user via Postgres Row Level Security
 - 💾 **Saved plans** — dashboard to revisit, view, and delete plans
 - 🛡️ **Hardened** — zod validation on every input, model output re-validated server-side, API key never leaves the server
+- 📊 **Monitoring** — Vercel Analytics (page views + Web Vitals) on the live deployment
 
 ## Stack
 
