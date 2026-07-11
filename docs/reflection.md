@@ -19,6 +19,7 @@ StudyPlan AI turns a pasted course syllabus into a structured week-by-week study
 - Confirm which AI credentials I'd actually have access to *before* locking the architecture doc to a specific provider.
 - Start with one end-to-end "walking skeleton" (auth → dummy generate → render) before polishing any single layer; building the API route to spec before the UI could exercise it delayed integration feedback.
 - Add an integration test with a mocked AI client — a live smoke-test call against the real endpoint caught nothing, but that's luck, not coverage.
+- **Get real users onto the live deployed app before calling this done.** Validation (docs/validation.md) only covers pre-build interviews about the *idea* — as of submission, nobody has actually used the *deployed* product end-to-end. That's the most valuable test the current version is still missing, and the next step I'd take before calling this more than a v1.
 
 ## Key takeaway
 The difference between an AI demo and an AI product is everything around the model call: validation, retries, persistence, auth, CI, and deployment. The model call was ~30 lines; making it shippable was the other ~95% of the work.

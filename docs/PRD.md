@@ -8,6 +8,9 @@ Students receive dense syllabi at the start of each term but rarely convert them
 ## Target user
 Graduate students and part-time learners managing multiple courses alongside work.
 
+## Why now
+Schema-constrained LLM output is now reliable and cheap enough to turn a pasted syllabus into a validated structured plan in one call, and free-tier Vercel + Supabase make shipping a real multi-user app (auth, per-user data, CI/CD) cost nothing — the two barriers that used to make this "just a ChatGPT wrapper" are both gone. Timing also matches peak need: syllabi land at the very start of term, right when the planning pain is highest.
+
 ## Goals
 1. Turn a pasted syllabus into a structured week-by-week study plan in under 60 seconds.
 2. Let users save plans to their account and revisit them.

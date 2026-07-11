@@ -8,6 +8,11 @@ Graduate students and working professionals in part-time programs (e.g., AIM MBA
 ### 2. Problem statement (one sentence)
 At the start of every term, students receive dense course syllabi as PDFs/documents and must manually translate them into a realistic week-by-week study schedule — a tedious, error-prone process most students skip, leading to last-minute cramming.
 
+### 2b. Why now
+- **Structured LLM output just became reliable enough.** Schema-constrained generation (JSON mode / structured `output` from providers like OpenAI) is now mature and cheap enough (`gpt-4o-mini`-class models) to parse a messy pasted syllabus into a validated weekly plan in one call — a year or two ago this would have needed custom NLP or an expensive, slower model to get comparable reliability.
+- **Free-tier infra removed the old cost barrier.** Vercel + Supabase now make it possible to ship a real multi-user product (auth, per-user database, RLS, CI/CD) at zero infrastructure cost, so the choice isn't "build a proper app" vs. "just wrap ChatGPT" anymore — a proper app is now the cheap option too.
+- **Timing matches peak user need.** Students receive syllabi at the very start of term, which is exactly when the manual-planning pain (and the temptation to skip it) is highest — building and testing this now, rather than mid-term, means the problem is freshest and easiest to validate with classmates.
+
 ### 3. Market evidence
 - **Existing tools:** Notion templates for study planning (manual setup), My Study Life (manual entry), Todoist (generic tasks). None parse a syllabus automatically.
 - **Search demand:** "study schedule generator", "study planner app" show consistent search volume; r/GradSchool and r/college regularly feature "how do you plan your semester" threads.
