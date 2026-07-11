@@ -1,7 +1,7 @@
 # Reflection — StudyPlan AI (1 page)
 
 ## What I built and why
-StudyPlan AI turns a pasted course syllabus into a structured week-by-week study plan. I chose it after the idea-validation exercise showed classmates already paste syllabi into ChatGPT but abandon the unstructured output — the gap wasn't "access to AI", it was **structure and persistence**, which shaped the whole design (structured-output generation, schema validation, saved plans).
+StudyPlan AI turns a pasted course syllabus into a structured week-by-week study plan. I chose it after the idea-validation exercise (docs/validation.md) surfaced that students already paste syllabi into ChatGPT ad hoc but abandon the unstructured output — the gap wasn't "access to AI", it was **structure and persistence**, which shaped the whole design (structured-output generation, schema validation, saved plans). That read came from market evidence (existing tools, search demand, community threads), not direct interviews — see the caveat below.
 
 ## What went well
 - **Spec-first development paid off.** Writing spec.md with exact request/response shapes before coding meant the API route, UI, and tests all agreed on one contract, and the zod schemas became shared source of truth for the server, client, and test suite.
@@ -19,7 +19,7 @@ StudyPlan AI turns a pasted course syllabus into a structured week-by-week study
 - Confirm which AI credentials I'd actually have access to *before* locking the architecture doc to a specific provider.
 - Start with one end-to-end "walking skeleton" (auth → dummy generate → render) before polishing any single layer; building the API route to spec before the UI could exercise it delayed integration feedback.
 - Add an integration test with a mocked AI client — a live smoke-test call against the real endpoint caught nothing, but that's luck, not coverage.
-- **Get real users onto the live deployed app before calling this done.** Validation (docs/validation.md) only covers pre-build interviews about the *idea* — as of submission, nobody has actually used the *deployed* product end-to-end. That's the most valuable test the current version is still missing, and the next step I'd take before calling this more than a v1.
+- **Do real user discovery, not just market research.** docs/validation.md's step 4 is honestly marked "not yet conducted" — the target-user pain was inferred from existing tools and public discussion, never confirmed with a direct interview or survey. Nobody has used the *deployed* product end-to-end either. Both are the most valuable tests the current version is still missing, and the next step I'd take before calling this more than a v1.
 
 ## Key takeaway
 The difference between an AI demo and an AI product is everything around the model call: validation, retries, persistence, auth, CI, and deployment. The model call was ~30 lines; making it shippable was the other ~95% of the work.

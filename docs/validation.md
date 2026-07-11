@@ -18,11 +18,8 @@ At the start of every term, students receive dense course syllabi as PDFs/docume
 - **Search demand:** "study schedule generator", "study planner app" show consistent search volume; r/GradSchool and r/college regularly feature "how do you plan your semester" threads.
 - **Willingness to adopt:** Students already paste syllabi into ChatGPT ad hoc — evidence the behavior exists but lacks a purpose-built, structured tool.
 
-### 4. User discovery (informal interviews)
-Asked 4 classmates in the program:
-- 4/4 said they never build a semester study plan because "it takes too long".
-- 3/4 said they had tried asking ChatGPT but got unstructured walls of text they never used.
-- All 4 said a one-click structured plan they could revisit would be useful.
+### 4. User discovery
+Not yet conducted. This step should be direct interviews or a short survey with target users (grad students / part-time-program peers) validating that the manual-planning pain and the desire for a structured, revisitable plan are real and not just assumed from market evidence (step 3). Flagged as a limitation and a pre-v2 priority — see [reflection.md](reflection.md).
 
 ### 5. Differentiating angle
 Not a chatbot. The user pastes a syllabus once and gets a **structured, week-by-week plan** (weeks, topics, deliverables, estimated hours, milestone warnings) rendered as a proper UI — savable to their account and revisitable. Purpose-built prompt engineering + structured JSON output + persistence is the moat over a raw ChatGPT window.
